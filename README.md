@@ -5,6 +5,7 @@
 ## プロジェクト概要
 
 **DeepResearch** は、オープンソースのマルチエージェント自動化フレームワーク **LangManus** を基盤に、気象データと高度な外部 API（OpenAI、Anthropic、Tavily、Weather API など）を統合し、研究者・データサイエンティスト向けにドメイン特化型のリサーチ支援を行うプロジェクトです。
+エージェントの実行には **LangChain** と **LangGraph** を用いたワークフローを採用しています。
 
 * **主ターゲット**: 気象・環境・エネルギー・災害対策など、天候の影響を受ける領域で高度なインサイトを必要とする研究者・実務家。
 * **アウトプット**: Markdown／PDF レポート、またはインタラクティブダッシュボード。
@@ -91,7 +92,7 @@
 ## 技術要件
 
 * **言語 / ランタイム**: Python 3.12+
-* **主要ライブラリ**: LangManus, LiteLLM, pandas, numpy, matplotlib/plotly, requests, streamlit (任意)
+* **主要ライブラリ**: LangManus, LangChain, LangGraph, LiteLLM, pandas, numpy, matplotlib/plotly, requests, streamlit (任意)
 * **ハードウェア**: CPU 依存。RAM 8 GB 以上推奨。GPU 不要（LLM はクラウド実行）。
 * **API キー**: OPENAI\_API\_KEY, ANTHROPIC\_API\_KEY, TAVILY\_API\_KEY, WEATHER\_API\_KEY
 * **環境構築**: `uv pip install -r requirements.txt` または Docker。
@@ -133,17 +134,29 @@ $ cd deepresearch-langmanus
 $ uv pip install -r requirements.txt  # または Docker 利用
 
 # 3. API キー設定
-$ cp .env.example .env  # 必要なキーを入力
+$ cp .env.example .env  # ファイルを編集して各種キーを入力
 
 # 4. 実行例
-$ python main.py \
+$ python -m deepresearch.main \
     --query "過去5年間の首都圏における猛暑日と電力需要の関係を調べて" \
     --location "Tokyo,JP" \
-    --output-format "report"
+    --output report.md
+# 実行時に LangGraph ベースのワークフローが組み立てられます
 
 # 5. 結果
-./outputs/YYYYMMDD_HHMM_report.md  が生成されます。
+report.md  が生成されます。
 ```
+
+### .env ファイルの例
+
+```
+OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+TAVILY_API_KEY=your_tavily_api_key
+WEATHER_API_KEY=your_weather_api_key
+```
+
+API キーは上記の `.env` に入力し、リポジトリにはコミットしないでください。
 
 ---
 

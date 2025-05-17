@@ -1,0 +1,7 @@
+openai
+anthropic
+python-dotenv
+requests
+pandas
+langchain
+langgraph
