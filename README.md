@@ -133,17 +133,28 @@ $ cd deepresearch-langmanus
 $ uv pip install -r requirements.txt  # または Docker 利用
 
 # 3. API キー設定
-$ cp .env.example .env  # 必要なキーを入力
+$ cp .env.example .env  # ファイルを編集して各種キーを入力
 
 # 4. 実行例
-$ python main.py \
+$ python -m deepresearch.main \
     --query "過去5年間の首都圏における猛暑日と電力需要の関係を調べて" \
     --location "Tokyo,JP" \
-    --output-format "report"
+    --output report.md
 
 # 5. 結果
-./outputs/YYYYMMDD_HHMM_report.md  が生成されます。
+report.md  が生成されます。
 ```
+
+### .env ファイルの例
+
+```
+OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+TAVILY_API_KEY=your_tavily_api_key
+WEATHER_API_KEY=your_weather_api_key
+```
+
+API キーは上記の `.env` に入力し、リポジトリにはコミットしないでください。
 
 ---
 
